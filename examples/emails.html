@@ -1,0 +1,27 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+		
+		<link href="styles/main.css" rel="stylesheet" type="text/css"/>
+		
+		<script src="scripts/jquery.js"></script>
+		<script type="text/javascript" src="scripts/jquery.tagger.min.js"></script>
+		
+		<title>jQuery Tagger - email filter example</title>
+	</head>
+	<body>
+		<!-- Input for category -->
+		<p>Insert comma separated emails:</p>
+		<input type="text" name="test" id="test" />
+		<ul id="log">
+		</ul>
+		<script type="text/javascript">
+			jQuery("#test").tagger({
+				tagPlacedCallback: function($input, stag){jQuery("#log").append(jQuery("<li><strong>" + stag + "</strong> has been accepted.</li>"));},
+				rejectedTagCallback: function($input, stag){jQuery("#log").append(jQuery("<li><strong>" + stag + "</strong> has been rejected.</li>"));},
+				acceptedTagRegex: /^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/
+			});
+		</script>
+	</body>
+</html>
