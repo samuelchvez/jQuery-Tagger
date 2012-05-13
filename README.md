@@ -6,8 +6,7 @@ If you want to learn how to use this plugin, see the following sections.
 
 1) Download
 -----------
-Goto the downloads section and get the latest build of jQuery Tagger. Also you can press the 
-"Download repository as ZIP" button.
+You can press the "Download repository as ZIP" button and get the full project source.
 
 2) What's in?
 -------------------------
