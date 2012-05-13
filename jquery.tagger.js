@@ -187,6 +187,19 @@
 				}
 				return true;
 			});
+			
+			// Behaviour on lost focus
+			$input.focusout(function(event){
+				// Get last value
+				var lastValue = $.trim($(this).val());
+				lastValue = lastValue.substr(0, lastValue.length);
+				 
+				// Add tag
+				addTag(lastValue, opts, $(this), $hidden);
+				
+				// Clear input 
+				$(this).val("");
+			});
         })
     }
     
