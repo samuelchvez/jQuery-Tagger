@@ -38,14 +38,14 @@
                     });
                     
                     // Generate colors (if needed)
-                    var colors = {}, styleString = "";
-                    if(opts.useColorFunction){
+                    var colors = undefined, styleString = "";
+                    if(opts.useColorFunction)
                         colors = opts.colorFunction(lastValue);
-                        styleString = "style='color:" + colors.font +";background-color:" + colors.background + ";'";
-                    }
-                    
+                        
                     // Add the tag
-                    var $tag = $("<span class='" + opts.tagClass + "' "+ styleString +" >" + lastValue + "</span>").append($close);
+                    var $tag = $("<span class='" + opts.tagClass + "'>" + lastValue + "</span>").append($close);
+                    if(colors != undefined)
+                        $tag.css({"color":colors.font, "background-color":colors.background});
                     $tag.insertBefore($cur);
                     
                     // Update hidden
@@ -104,19 +104,9 @@
                     
                     // Clear input
                     $cur.val("");
-                    clr = true;
                     return false;
                 }
                 return true;
-            });
-            
-            // Keyup event over the current input
-            $input.keyup(function(event){
-                // Clear input
-                if(clr){
-                    $(this).val("");
-                    clr = false;
-                }
             });
         })
     }
