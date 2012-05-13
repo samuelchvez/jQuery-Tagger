@@ -164,6 +164,8 @@
 			$input.keydown(function(event){
 				// Delete
 				if(event.which == 8){
+					if($.trim($(this).val()) != "")
+						return true;
 					if($(this).prev().length > 0){
 						$rtag = $(this).prev().find("a").trigger("click");
 					}
