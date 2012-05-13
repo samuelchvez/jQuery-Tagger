@@ -205,5 +205,5 @@
 		acceptedTagRegex: undefined, // RegExp object to test new tags for acceptance. rejectedTagRegex is used only if acceptedTagRegex is undefined
         rejectedTagRegex: undefined, // RegExp object to test new tags for rejection
         limit: undefined // int to tell the plugin if there is a limit number of tags to create
-    };
+    }; 
 })(jQuery, window);
