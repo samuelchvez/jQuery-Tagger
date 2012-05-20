@@ -2,10 +2,18 @@
     
     $.fn.tagger = function(options){
         
+		/**
+		 * @returns {void} nothing
+		 * @param {Object} input text to be resized (+1)
+		 */
 		function stretch($input){
 			$input.attr("size", parseInt($input.attr("size")) + 1);
 		}
 		
+		/**
+		 * @returns {void} nothing
+		 * @param {Object} input text to be resized (-1)
+		 */
 		function shrink($input){
 			$input.attr("size", parseInt($input.attr("size")) - 1);
 		}
