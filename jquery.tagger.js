@@ -2,6 +2,14 @@
     
     $.fn.tagger = function(options){
         
+		function stretch($input){
+			$input.attr("size", parseInt($input.attr("size")) + 1);
+		}
+		
+		function shrink($input){
+			$input.attr("size", parseInt($input.attr("size")) - 1);
+		}
+		
         /**
          * @returns {Boolean} true if value is the option separator
          * @param {Object} opts plugin options
@@ -81,12 +89,14 @@
                         // Rejected callback
                         opts.rejectedTagCallback($cur, lastValue);
                     }
-                    
                 }
             }
 			else{
 				opts.limitReachedCallback();
 			}
+			
+			// Reset size after adding a tag
+			$cur.attr("size", "1");
         }
         
         // Options merge
@@ -98,7 +108,15 @@
         return this.each(function(){
             
             // Format input
-            var $input = $(this); var iName = $input.attr("name");$input.attr("name", "tagger_old_" + iName);
+            var $input = $(this); var iName = $input.attr("name");
+			
+			// Clear old size
+			$input.attr("size", "1");
+			
+			if(opts.oldInputPersistence)
+				$input.attr("name", opts.oldInputPersistencePattern.replace("{old}", iName));
+			else
+				$input.attr("name", "");
             
             // Create hidden replace
             var $hidden = $("<input type='hidden' name='" + iName + "' />")
@@ -157,6 +175,9 @@
                     $cur.val("");
                     return false;
                 }
+				else{
+					stretch($cur);
+				}
                 return true;
             });
 			
@@ -164,8 +185,10 @@
 			$input.keydown(function(event){
 				// Delete
 				if(event.which == 8){
-					if($.trim($(this).val()) != "")
+					if($.trim($(this).val()) != ""){
+						shrink($(this));
 						return true;
+					}
 					if($(this).prev().length > 0){
 						$rtag = $(this).prev().find("a").trigger("click");
 					}
@@ -183,7 +206,6 @@
                     // Clear input
                     $(this).val("");
                     return false;
-					
 				}
 				return true;
 			});
@@ -219,6 +241,8 @@
         limitReachedCallback: function(){}, // Callback function called each time the limit is reached
 		acceptedTagRegex: undefined, // RegExp object to test new tags for acceptance. rejectedTagRegex is used only if acceptedTagRegex is undefined
         rejectedTagRegex: undefined, // RegExp object to test new tags for rejection
-        limit: undefined // int to tell the plugin if there is a limit number of tags to create
+        limit: undefined, // int to tell the plugin if there is a limit number of tags to create
+		oldInputPersistence: true, // If true, then it checks the pattern to rename the old input, if false, it clearse the name atr of the old input
+		oldInputPersistencePattern: "old_{old}" // Pattern to rename the old input, example old_{old}
     }; 
 })(jQuery, window);
